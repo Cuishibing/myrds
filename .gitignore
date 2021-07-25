@@ -1,9 +1,9 @@
-/target
-.settings
+**/target
+**/.settings
 
-.vscode
-.idea
+**/.vscode
+**/.idea
 
-.classpath
-.factorypath
-.project
+**/.classpath
+**/.factorypath
+**/.project
