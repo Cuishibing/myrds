@@ -1,9 +1,11 @@
-package cui.shibing.user.entity;
+package cui.shibing.rdsserver.user.entity;
 
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.Data;
 
+@QueryEntity
 @Data
-public class RdsUser {
+public class RdsUserEntity {
     private long id;
 
     /**
@@ -20,4 +22,10 @@ public class RdsUser {
      * 密码
      */
     private String password;
+
+    private Integer valid;
+
+    private Long ctime;
+
+    private Long utime;
 }

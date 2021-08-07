@@ -4,3 +4,7 @@ server:
 spring:
   application:
     name: mrds-server
+  datasource:
+    url: "jdbc:mysql://localhost/rdsdb"
+    username: "root"
+    password: "root"
