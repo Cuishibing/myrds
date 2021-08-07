@@ -1,6 +1,6 @@
 package cui.shibing.rdsserver;
 
-import cui.shibing.rdsserver.user.entity.RdsUserEntity;
+import cui.shibing.rdsserver.entity.TRdsUser;
 import cui.shibing.rdsserver.user.repository.RdsUserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +18,7 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        RdsUserEntity byId = rdsUserEntityRepository.findById(1);
+        TRdsUser byId = rdsUserEntityRepository.findById(1);
 
         System.out.println(byId);
     }

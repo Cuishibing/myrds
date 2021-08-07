@@ -12,9 +12,17 @@ import javax.sql.DataSource;
 public class QueryDslConfig {
 
     @Bean
-    public SQLQueryFactory queryFactory(@Autowired DataSource dataSource) {
-        MySQLTemplates mySQLTemplates = new MySQLTemplates();
-        com.querydsl.sql.Configuration configuration = new com.querydsl.sql.Configuration(mySQLTemplates);
+    public MySQLTemplates mySQLTemplates() {
+        return new MySQLTemplates();
+    }
+
+    @Bean
+    public com.querydsl.sql.Configuration configuration(@Autowired MySQLTemplates mySQLTemplates) {
+        return new com.querydsl.sql.Configuration(mySQLTemplates);
+    }
+
+    @Bean
+    public SQLQueryFactory queryFactory(@Autowired DataSource dataSource, com.querydsl.sql.Configuration configuration) {
         return new SQLQueryFactory(configuration, dataSource);
     }
 
