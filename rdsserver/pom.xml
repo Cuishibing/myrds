@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <querydsl.version>5.0.0</querydsl.version>
+        <mysql.driver.version>8.0.25</mysql.driver.version>
     </properties>
 
     <dependencies>
@@ -37,7 +38,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
+            <version>${mysql.driver.version}</version>
         </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>
@@ -115,7 +116,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>8.0.25</version>
+                        <version>${mysql.driver.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

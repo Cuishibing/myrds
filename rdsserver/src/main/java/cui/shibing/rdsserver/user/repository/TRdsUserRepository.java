@@ -5,7 +5,6 @@ import cui.shibing.rdsserver.entity.QTRdsUser;
 import cui.shibing.rdsserver.entity.TRdsUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -14,9 +13,6 @@ public class TRdsUserRepository {
 
     @Autowired
     private SQLQueryFactory queryFactory;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     public TRdsUser findById(long id) {
         if (id == 0) {
