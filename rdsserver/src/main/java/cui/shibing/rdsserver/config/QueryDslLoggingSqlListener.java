@@ -1,0 +1,13 @@
+package cui.shibing.rdsserver.config;
+
+import com.querydsl.sql.SQLBaseListener;
+import com.querydsl.sql.SQLListenerContext;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class QueryDslLoggingSqlListener extends SQLBaseListener {
+    @Override
+    public void prepared(SQLListenerContext context) {
+        log.info(context.getSQL());
+    }
+}
