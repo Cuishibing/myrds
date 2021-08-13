@@ -16,7 +16,7 @@ public class QueryDslConfig {
     @Bean
     public com.querydsl.sql.Configuration configuration() {
         com.querydsl.sql.Configuration configuration = new com.querydsl.sql.Configuration(MySQLTemplates.builder().build());
-
+        configuration.addListener(new QueryDslLoggingSqlListener());
         configuration.setExceptionTranslator(new SpringExceptionTranslator());
         return configuration;
     }
