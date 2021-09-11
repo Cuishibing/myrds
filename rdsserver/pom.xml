@@ -69,41 +69,52 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>querydsl-gen</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.querydsl</groupId>
+                        <artifactId>querydsl-maven-plugin</artifactId>
+                        <version>${querydsl.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>export</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <jdbcDriver>com.mysql.cj.jdbc.Driver</jdbcDriver>
+                            <jdbcUrl>jdbc:mysql://localhost/rdsdb</jdbcUrl>
+                            <jdbcUser>root</jdbcUser>
+                            <jdbcPassword>root</jdbcPassword>
+                            <tableNamePattern>t_rds_user,t_rds_database_info</tableNamePattern>
+                            <exportBeans>true</exportBeans>
+                            <packageName>cui.shibing.rdsserver.entity</packageName>
+                            <targetFolder>${project.basedir}/src/main/java</targetFolder>
+                            <sourceFolder>${project.basedir}/src/main/java</sourceFolder>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>${mysql.driver.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.querydsl</groupId>
-                <artifactId>querydsl-maven-plugin</artifactId>
-                <version>${querydsl.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>export</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jdbcDriver>com.mysql.cj.jdbc.Driver</jdbcDriver>
-                    <jdbcUrl>jdbc:mysql://localhost/rdsdb</jdbcUrl>
-                    <jdbcUser>root</jdbcUser>
-                    <jdbcPassword>root</jdbcPassword>
-                    <tableNamePattern>t_rds_user,t_rds_database_info</tableNamePattern>
-                    <exportBeans>true</exportBeans>
-                    <packageName>cui.shibing.rdsserver.entity</packageName>
-                    <targetFolder>${project.basedir}/src/main/java</targetFolder>
-                    <sourceFolder>${project.basedir}/src/main/java</sourceFolder>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.driver.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
