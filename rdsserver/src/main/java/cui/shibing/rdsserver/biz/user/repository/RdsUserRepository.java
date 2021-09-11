@@ -1,4 +1,4 @@
-package cui.shibing.rdsserver.user.repository;
+package cui.shibing.rdsserver.biz.user.repository;
 
 import com.querydsl.sql.SQLQueryFactory;
 import cui.shibing.rdsserver.entity.QTRdsUser;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class TRdsUserRepository {
+public class RdsUserRepository {
 
     @Autowired
     private SQLQueryFactory queryFactory;
@@ -20,6 +20,14 @@ public class TRdsUserRepository {
         }
         QTRdsUser table = QTRdsUser.tRdsUser;
         return queryFactory.selectFrom(table).where(table.id.eq(id)).fetchOne();
+    }
+
+    public long countByAccount(String account) {
+        if (account == null || "".equals(account)) {
+            return 0;
+        }
+        QTRdsUser table = QTRdsUser.tRdsUser;
+        return queryFactory.selectFrom(table).where(table.account.eq(account)).fetchCount();
     }
 
     public boolean insert(TRdsUser user) {

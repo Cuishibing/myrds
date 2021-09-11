@@ -91,7 +91,7 @@
                     <jdbcUrl>jdbc:mysql://localhost/rdsdb</jdbcUrl>
                     <jdbcUser>root</jdbcUser>
                     <jdbcPassword>root</jdbcPassword>
-                    <tableNamePattern>t_rds_user</tableNamePattern>
+                    <tableNamePattern>t_rds_user,t_rds_database_info</tableNamePattern>
                     <exportBeans>true</exportBeans>
                     <packageName>cui.shibing.rdsserver.entity</packageName>
                     <targetFolder>${project.basedir}/src/main/java</targetFolder>

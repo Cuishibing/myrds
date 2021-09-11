@@ -1,4 +1,4 @@
-package cui.shibing.rdsserver.user.repository;
+package cui.shibing.rdsserver.biz.user.repository;
 
 import cui.shibing.rdsserver.App;
 import cui.shibing.rdsserver.entity.TRdsUser;
@@ -18,10 +18,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @Transactional
 @Rollback
-public class TRdsUserRepositoryTest {
+public class RdsUserRepositoryTest {
 
     @Autowired
-    private TRdsUserRepository repository;
+    private RdsUserRepository repository;
 
     @Test
     public void testInsertAndFindById() {
