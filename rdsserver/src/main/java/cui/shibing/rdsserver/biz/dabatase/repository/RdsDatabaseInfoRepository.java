@@ -27,16 +27,6 @@ public class RdsDatabaseInfoRepository {
         return id != null;
     }
 
-    public List<TRdsDatabaseInfo> findByUserId(Long userId) {
-        if (userId == null) {
-            return new ArrayList<>(0);
-        }
-        QTRdsDatabaseInfo table = QTRdsDatabaseInfo.tRdsDatabaseInfo;
-        return queryFactory.selectFrom(table)
-                .where(table.userId.eq(userId).and(table.valid.eq(1)))
-                .fetch();
-    }
-
     public boolean delete(Long id) {
         if (id == null) {
             return false;

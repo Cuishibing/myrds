@@ -24,7 +24,7 @@ public class UserService {
         }
 
         RdsUser user = new RdsUser();
-        user.newRdsUser(param.getAccount(), param.getName());
+        user.init(param.getAccount(), param.getName());
 
         rdsUserRepository.insert(RdsUserFactory.factory.createStore(user));
 

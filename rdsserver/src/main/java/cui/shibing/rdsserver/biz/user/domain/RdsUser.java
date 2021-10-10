@@ -25,11 +25,13 @@ public class RdsUser  {
 
     private Integer valid;
 
-    public RdsUser newRdsUser(String account, String name) {
+    public RdsUser init(String account, String name) {
         this.setAccount(account);
         this.setName(name);
 
-        this.setCtime(System.currentTimeMillis());
+        if (ctime == null) {
+            this.setCtime(System.currentTimeMillis());
+        }
         this.setValid(1);
 
         String defaultPassword = Math.abs(new Random().nextInt(999999)) + "";

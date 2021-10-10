@@ -16,13 +16,9 @@ public class TRdsDatabaseInfo {
 
     private Long id;
 
-    private String name;
-
     private String password;
 
     private Integer port;
-
-    private Long userId;
 
     private Long utime;
 
@@ -60,14 +56,6 @@ public class TRdsDatabaseInfo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -82,14 +70,6 @@ public class TRdsDatabaseInfo {
 
     public void setPort(Integer port) {
         this.port = port;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public Long getUtime() {

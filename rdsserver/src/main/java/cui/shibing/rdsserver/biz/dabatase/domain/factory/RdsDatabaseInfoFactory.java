@@ -18,10 +18,8 @@ public class RdsDatabaseInfoFactory {
         domain.setDefaultDb(store.getDefaultDb());
         domain.setHost(store.getHost());
         domain.setId(store.getId());
-        domain.setName(store.getName());
         domain.setPassword(store.getPassword());
         domain.setPort(store.getPort());
-        domain.setUserId(store.getUserId());
         domain.setUtime(store.getUtime());
         domain.setValid(store.getValid());
 
@@ -35,10 +33,8 @@ public class RdsDatabaseInfoFactory {
         store.setDefaultDb(domain.getDefaultDb());
         store.setHost(domain.getHost());
         store.setId(domain.getId());
-        store.setName(domain.getName());
         store.setPassword(domain.getPassword());
         store.setPort(domain.getPort());
-        store.setUserId(domain.getUserId());
         store.setUtime(domain.getUtime());
         store.setValid(domain.getValid());
 
