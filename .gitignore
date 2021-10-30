@@ -3,6 +3,7 @@
 
 **/.vscode
 **/.idea
+*.iml
 
 **/.classpath
 **/.factorypath

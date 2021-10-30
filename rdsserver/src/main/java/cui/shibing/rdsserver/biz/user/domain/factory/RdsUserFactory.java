@@ -5,9 +5,8 @@ import cui.shibing.rdsserver.entity.TRdsUser;
 
 public class RdsUserFactory {
 
-    public static RdsUserFactory factory = new RdsUserFactory();
 
-    public RdsUser createDomain(TRdsUser tRdsUser) {
+    public static RdsUser createDomain(TRdsUser tRdsUser) {
         if (tRdsUser == null) {
             return null;
         }
@@ -24,7 +23,7 @@ public class RdsUserFactory {
         return rdsUser;
     }
 
-    public TRdsUser createStore(RdsUser rdsUser) {
+    public static TRdsUser createStore(RdsUser rdsUser) {
         if (rdsUser == null) {
             return null;
         }

@@ -32,9 +32,13 @@ public class QTRdsDatabaseInfo extends com.querydsl.sql.RelationalPathBase<TRdsD
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath name = createString("name");
+
     public final StringPath password = createString("password");
 
     public final NumberPath<Integer> port = createNumber("port", Integer.class);
+
+    public final StringPath userName = createString("userName");
 
     public final NumberPath<Long> utime = createNumber("utime", Long.class);
 
@@ -68,14 +72,16 @@ public class QTRdsDatabaseInfo extends com.querydsl.sql.RelationalPathBase<TRdsD
     }
 
     public void addMetadata() {
-        addMetadata(ctime, ColumnMetadata.named("ctime").withIndex(7).ofType(Types.BIGINT).withSize(19).notNull());
-        addMetadata(defaultDb, ColumnMetadata.named("default_db").withIndex(4).ofType(Types.VARCHAR).withSize(128).notNull());
-        addMetadata(host, ColumnMetadata.named("host").withIndex(2).ofType(Types.VARCHAR).withSize(128).notNull());
+        addMetadata(ctime, ColumnMetadata.named("ctime").withIndex(9).ofType(Types.BIGINT).withSize(19).notNull());
+        addMetadata(defaultDb, ColumnMetadata.named("default_db").withIndex(5).ofType(Types.VARCHAR).withSize(128).notNull());
+        addMetadata(host, ColumnMetadata.named("host").withIndex(3).ofType(Types.VARCHAR).withSize(128).notNull());
         addMetadata(id, ColumnMetadata.named("id").withIndex(1).ofType(Types.BIGINT).withSize(19).notNull());
-        addMetadata(password, ColumnMetadata.named("password").withIndex(5).ofType(Types.VARCHAR).withSize(128).notNull());
-        addMetadata(port, ColumnMetadata.named("port").withIndex(3).ofType(Types.INTEGER).withSize(10).notNull());
-        addMetadata(utime, ColumnMetadata.named("utime").withIndex(8).ofType(Types.BIGINT).withSize(19).notNull());
-        addMetadata(valid, ColumnMetadata.named("valid").withIndex(6).ofType(Types.INTEGER).withSize(10).notNull());
+        addMetadata(name, ColumnMetadata.named("name").withIndex(2).ofType(Types.VARCHAR).withSize(128).notNull());
+        addMetadata(password, ColumnMetadata.named("password").withIndex(7).ofType(Types.VARCHAR).withSize(128).notNull());
+        addMetadata(port, ColumnMetadata.named("port").withIndex(4).ofType(Types.INTEGER).withSize(10).notNull());
+        addMetadata(userName, ColumnMetadata.named("user_name").withIndex(6).ofType(Types.VARCHAR).withSize(128).notNull());
+        addMetadata(utime, ColumnMetadata.named("utime").withIndex(10).ofType(Types.BIGINT).withSize(19).notNull());
+        addMetadata(valid, ColumnMetadata.named("valid").withIndex(8).ofType(Types.INTEGER).withSize(10).notNull());
     }
 
 }

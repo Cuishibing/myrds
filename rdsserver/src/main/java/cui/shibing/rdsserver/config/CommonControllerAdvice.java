@@ -18,7 +18,7 @@ public class CommonControllerAdvice implements ResponseBodyAdvice<Object> {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public BizResponse<String> runtimeException(Exception e) {
-        return new BizResponse<>("500", "Internal Error!", "");
+        return new BizResponse<>("500", "Internal Error!", e.getMessage());
     }
 
     @ResponseBody

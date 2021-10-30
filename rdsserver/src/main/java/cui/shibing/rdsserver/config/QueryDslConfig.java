@@ -2,7 +2,6 @@ package cui.shibing.rdsserver.config;
 
 import com.querydsl.sql.MySQLTemplates;
 import com.querydsl.sql.SQLQueryFactory;
-import com.querydsl.sql.spring.SpringConnectionProvider;
 import com.querydsl.sql.spring.SpringExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +22,7 @@ public class QueryDslConfig {
 
     @Bean
     public SQLQueryFactory queryFactory(@Autowired DataSource dataSource, com.querydsl.sql.Configuration configuration) {
-        return new SQLQueryFactory(configuration, new SpringConnectionProvider(dataSource));
+        return new SQLQueryFactory(configuration, new MConnectionProvider(dataSource));
     }
 
 }

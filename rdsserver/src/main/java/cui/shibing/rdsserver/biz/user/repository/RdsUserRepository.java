@@ -3,11 +3,9 @@ package cui.shibing.rdsserver.biz.user.repository;
 import com.querydsl.sql.SQLQueryFactory;
 import cui.shibing.rdsserver.entity.QTRdsUser;
 import cui.shibing.rdsserver.entity.TRdsUser;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Component
 public class RdsUserRepository {
 
@@ -27,7 +25,7 @@ public class RdsUserRepository {
             return 0;
         }
         QTRdsUser table = QTRdsUser.tRdsUser;
-        return queryFactory.selectFrom(table).where(table.account.eq(account)).fetchCount();
+        return queryFactory.selectFrom(table).where(table.account.eq(account).and(table.valid.eq(1))).fetchCount();
     }
 
     public boolean insert(TRdsUser user) {

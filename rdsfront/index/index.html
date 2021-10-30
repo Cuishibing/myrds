@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <script src="https://unpkg.com/vue@3.2.20"></script>
+</head>
+
+<body>
+
+    <div class="container" id="app">
+        <div class="page-header">
+            <h1>Welcome To My RDS</h1>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">保存的连接</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>名称</th>
+                        <th>Host</th>
+                        <th>Port</th>
+                        <th>用户</th>
+                        <th>DB</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr v-for="info in databaseInfo" :key="info.name">
+                        <td>
+                            <label>{{info.name}}</label>
+                        </td>
+                        <td>
+                            <p>{{info.host}}</p>
+                        </td>
+                        <td>
+                            <p>{{info.port}}</p>
+                        </td>
+                        <td>
+                            <p>{{info.userName}}</p>
+                        </td>
+                        <td>
+                            <p>{{info.defaultDb}}</p>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" @click="editOneDatabaseInfo(info)">编辑</button>&nbsp;
+                            <button class="btn" @click="deleteOneDatabaseInfo(info)">刪除</button>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <button id="add_database_info_btn" type="button" class="btn btn-success btn-block"
+                    @click="addNewDatabaseInfo">添加</button>
+            </div>
+        </div>
+
+        <div class="panel panel-primary" v-if="showEdit">
+            <div class="panel-heading">
+                <h3 class="panel-title">编辑</h3>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="databaseName">名称</label>
+                                <input type="text" class="form-control" id="databaseName" placeholder="名称"
+                                    v-model="editDatabaseInfo.name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="databaseHost">Host</label>
+                                <input type="text" class="form-control" id="databaseHost" placeholder="localhost"
+                                    v-model="editDatabaseInfo.host">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="databasePort">Port</label>
+                                <input type="number" class="form-control" id="databasePort" value="3306"
+                                    v-model="editDatabaseInfo.port">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="databaseUserName">用户</label>
+                                <input type="text" class="form-control" id="databaseUserName" placeholder=""
+                                    v-model="editDatabaseInfo.userName">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="databasePassword">密码</label>
+                                <input type="text" class="form-control" id="databasePassword" placeholder=""
+                                    v-model="editDatabaseInfo.password">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="databaseDefaultDb">DB</label>
+                                <input type="text" class="form-control" id="databaseDefaultDb"
+                                    v-model="editDatabaseInfo.defaultDb">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-6"><button type="button" class="btn btn-success btn-block">测试</button></div>
+                    <div class="col-md-6"><button type="button" class="btn btn-primary btn-block"
+                            @click="saveEditDatabaseInfo">保存</button></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script type="module">
+        import { getAllDatabaseInfo, createDatabaseInfo, updateDatabaseInfo,deleteDatabaseInfo } from "/js/api.js"
+        const app = {
+            data() {
+                return {
+                    message: "hello world",
+                    databaseInfo: [
+
+                    ],
+                    showEdit: false,
+
+                    editDatabaseInfo: {
+                        name: "",
+                        userName: "",
+                        password: "",
+                        host: "",
+                        port: 3306,
+                        defaultDb: ""
+                    }
+                }
+            },
+            methods: {
+                addNewDatabaseInfo() {
+                    this.showEdit = !this.showEdit
+                    this.editDatabaseInfo = { port: 3306 }
+                },
+                saveEditDatabaseInfo() {
+                    console.info(this.editDatabaseInfo)
+                    if (this.editDatabaseInfo.id) {
+                        // update
+                        console.info("update:" + this.editDatabaseInfo.id)
+                        updateDatabaseInfo(this.editDatabaseInfo).then(data => {
+                            if (data.code == '200') {
+                                this.editDatabaseInfo = { port: 3306 }
+                                this.showEdit = false
+                                this.init()
+                            }
+                        })
+                    } else {
+                        createDatabaseInfo(this.editDatabaseInfo).then(data => {
+                            if (data.code == '200') {
+                                this.editDatabaseInfo = { port: 3306 }
+                                this.showEdit = false
+                                this.init()
+                            }
+                        })
+                    }
+                },
+                deleteOneDatabaseInfo(info) {
+                    deleteDatabaseInfo(info).then(data => {
+                        if (data.code == '200') {
+                            this.editDatabaseInfo = { port: 3306 }
+                            this.showEdit = false
+                            this.init()
+                        }
+                    })
+                },
+                editOneDatabaseInfo(info) {
+                    this.showEdit = true
+                    this.editDatabaseInfo = { ...info }
+                },
+                init() {
+                    getAllDatabaseInfo().then(data => {
+                        console.info(data)
+                        if (data.code == '200') {
+                            this.databaseInfo = data.data;
+                        } else {
+                            this.databaseInfo = [];
+                        }
+                    })
+                }
+            },
+            mounted() {
+                this.init()
+            }
+        }
+        Vue.createApp(app).mount("#app")
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
