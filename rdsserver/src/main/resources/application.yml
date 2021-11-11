@@ -8,3 +8,6 @@ spring:
     url: "jdbc:mysql://localhost/rdsdb"
     username: "root"
     password: "root"
+#    hikari:
+#      minimum-idle: 10
+#      maximum-pool-size: 60

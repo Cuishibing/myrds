@@ -1,0 +1,58 @@
+<template>
+  <div>
+    <h4>TABLE列表</h4>
+    <label>搜索：</label><input  type="text" />
+    <div
+      v-for="t in tables"
+      :key="t"
+      style="padding: 5px; cursor: pointer; border-bottom: 1px solid black;">
+      {{ t }}
+    </div>
+  </div>
+</template>
+
+<script>
+import { executeSql } from "/js/api.mjs";
+export default {
+  data() {
+    return {
+      tables: [],
+    };
+  },
+  methods: {
+    loadTables() {
+      executeSql({
+        databaseInfoId: this.getUrlKey("dbId"),
+        sql: "show tables;",
+      }).then((data) => {
+        if (data.code != "200") {
+          alert(data.message);
+          return;
+        }
+        let rows = data.data.rows;
+        for (let i = 0; i < rows.length; i++) {
+          this.tables[i] = rows[i][0];
+        }
+      });
+    },
+    getUrlKey: function (name) {
+      return (
+        decodeURIComponent(
+          (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
+            location.href
+          ) || [, ""])[1].replace(/\+/g, "%20")
+        ) || null
+      );
+    },
+    init() {
+      this.loadTables();
+    },
+  },
+  mounted() {
+    this.init();
+  },
+};
+</script>
+
+<style>
+</style>

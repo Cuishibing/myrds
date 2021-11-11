@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue@3.2.20"></script>
+</head>
+
+<body>
+
+    <div class="container" id="app">
+        <!-- 头部 -->
+        <div style="display: flex; justify-content: center;">
+            <m-header style="width: 80%;"></m-header>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <m-tablelist style="width: 20%;"></m-tablelist>
+            <div style="width: 60%;">
+                <div
+                    style="display: block;margin-block-start: 1.33em;margin-block-end: 1.33em;margin-inline-start: 0px;margin-inline-end: 0px;">
+                    <button style="line-height: 20px;" id="sql" v-bind:style="selfActive('sql')"
+                        @click="tabClick('sql')">SQL</button>&nbsp;
+                    <button style="line-height: 20px;" id="tableInfo" v-bind:style="selfActive('tableInfo')"
+                        @click="tabClick('tableInfo')">表信息</button>
+                </div>
+                <m-sql :style="{visibility:activeTab == 'sql' ? 'visible' : 'hidden'}" :db-id="dbId"></m-sql>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { mvueloader } from "/js/mvueloader.mjs"
+        const app = {
+            components: {
+                "m-header": mvueloader("/header/header.vue"),
+                "m-tablelist": mvueloader("/tablelist/tablelist.vue"),
+                "m-sql": mvueloader("/sql/sql.vue")
+            },
+            data() {
+                return {
+                    activeTab: "sql",
+                    dbId: 0
+                }
+            },
+            methods: {
+                tabClick(id) {
+                    this.activeTab = id
+                },
+                selfActive(id) {
+                    if (id == this.activeTab) {
+                        return {
+                            "background-color": "blue"
+                        }
+                    }
+                },
+                getUrlKey: function (name) {
+                    return (
+                        decodeURIComponent(
+                            (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
+                                location.href
+                            ) || [, ""])[1].replace(/\+/g, "%20")
+                        ) || null
+                    );
+                },
+                loadTitle() {
+                    document.title = this.getUrlKey("dbName");
+                },
+                init() {
+                    this.loadTitle()
+                    this.loadTitle();
+
+                    this.dbId = Number(this.getUrlKey("dbId"))
+                },
+            },
+            mounted() {
+                this.init()
+            }
+        }
+        Vue.createApp(app).mount("#app")
+
+    </script>
+</body>
+
+</html>

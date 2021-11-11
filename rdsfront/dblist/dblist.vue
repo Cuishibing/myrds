@@ -1,0 +1,198 @@
+<template>
+    <div>
+        <div>
+            <h4>保存的连接</h4>
+
+            
+
+            <table class="border-table" cellspacing="2">
+                <tr>
+                    <th>名称</th>
+                    <th>Host</th>
+                    <th>Port</th>
+                    <th>用户</th>
+                    <th>DB</th>
+                    <th style="text-align:center">操作</th>
+                </tr>
+                <tr v-for="info in databaseInfo" :key="info.name">
+                    <td>
+                        <a href="javascript:void(0)" @click="goDatabase(info)">{{info.name}}</a>
+                    </td>
+                    <td>
+                        {{info.host}}
+                    </td>
+                    <td>
+                        {{info.port}}
+                    </td>
+                    <td>
+                        {{info.userName}}
+                    </td>
+                    <td>
+                        {{info.defaultDb}}
+                    </td>
+                    <td style="text-align:center">
+                        <button class="btn btn-primary" @click="editOneDatabaseInfo(info)">编辑</button>&nbsp;
+                        <button class="btn" @click="deleteOneDatabaseInfo(info)">刪除</button>
+                    </td>
+
+                </tr>
+            </table>
+
+            <div style="margin-top: 5px;">
+                <button type="button" @click="addNewDatabaseInfo">添加</button>
+            </div>
+        </div>
+
+        <div v-if="showEdit">
+            <div>
+                <h4>编辑</h4>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        名称
+                    </td>
+                    <td>
+                        <input type="text" placeholder="名称" v-model="editDatabaseInfo.name">
+                    </td>
+                    <td>Host</td>
+                    <td><input type="text" placeholder="localhost" v-model="editDatabaseInfo.host"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Port
+                    </td>
+                    <td>
+                        <input type="number" value="3306" v-model="editDatabaseInfo.port">
+                    </td>
+                    <td>
+                        用户
+                    </td>
+                    <td>
+                        <input type="text" placeholder="" v-model="editDatabaseInfo.userName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td> <input type="text" placeholder="" v-model="editDatabaseInfo.password"></td>
+                    <td>DB</td>
+                    <td> <input type="text" v-model="editDatabaseInfo.defaultDb"></td>
+                </tr>
+            </table>
+            <div style="margin-top: 5px;"><button type="button" @click="testEditDatabaseInfo">测试</button>&nbsp;
+                <button type="button" @click="saveEditDatabaseInfo">保存</button>
+            </div>
+        </div>
+        <div>
+</template>
+
+<script>
+import {
+  getAllDatabaseInfo,
+  createDatabaseInfo,
+  updateDatabaseInfo,
+  deleteDatabaseInfo,
+  executeSql,
+} from "/js/api.mjs";
+export default {
+  data() {
+    return {
+      databaseInfo: [],
+      showEdit: false,
+
+      editDatabaseInfo: {
+        name: "",
+        userName: "",
+        password: "",
+        host: "",
+        port: 3306,
+        defaultDb: "",
+      },
+    };
+  },
+  methods: {
+    addNewDatabaseInfo() {
+      this.showEdit = !this.showEdit;
+      this.editDatabaseInfo = { port: 3306 };
+    },
+    saveEditDatabaseInfo() {
+      console.info(this.editDatabaseInfo);
+      if (this.editDatabaseInfo.id) {
+        updateDatabaseInfo(this.editDatabaseInfo).then((data) => {
+          if (data.code == "200") {
+            this.editDatabaseInfo = { port: 3306 };
+            this.showEdit = false;
+            this.init();
+          }
+        });
+      } else {
+        createDatabaseInfo(this.editDatabaseInfo).then((data) => {
+          if (data.code == "200") {
+            this.editDatabaseInfo = { port: 3306 };
+            this.showEdit = false;
+            this.init();
+          }
+        });
+      }
+    },
+    deleteOneDatabaseInfo(info) {
+      deleteDatabaseInfo(info).then((data) => {
+        if (data.code == "200") {
+          this.editDatabaseInfo = { port: 3306 };
+          this.showEdit = false;
+          this.init();
+        }
+      });
+    },
+    testEditDatabaseInfo() {
+      console.info("test" + JSON.stringify(this.editDatabaseInfo));
+      executeSql({
+        databaseInfoId: this.editDatabaseInfo.id,
+        sql: "show databases;",
+      }).then((data) => {
+        if (data.code == "200") {
+          alert("success");
+        }
+      });
+    },
+    goDatabase(info) {
+      window.open(`/main/main.html?dbId=${info.id}&dbName=${info.name}`);
+    },
+    editOneDatabaseInfo(info) {
+      this.showEdit = true;
+      this.editDatabaseInfo = { ...info };
+    },
+    init() {
+      getAllDatabaseInfo().then((data) => {
+        console.info(data);
+        if (data.code == "200") {
+          this.databaseInfo = data.data;
+        } else {
+          this.databaseInfo = [];
+        }
+      });
+    },
+  },
+  mounted() {
+    this.init();
+  },
+};
+</script>
+
+ <style scoped>
+table td,
+th {
+  min-width: 150px;
+}
+
+table,
+table tr th,
+table tr td {
+  border: 1px solid black;
+  padding: 5px;
+}
+table {
+  text-align: left;
+  border-collapse: collapse;
+}
+</style>

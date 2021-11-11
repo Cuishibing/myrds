@@ -1,7 +1,12 @@
 package cui.shibing.rdsserver.biz.dabatase.domain;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
+
+import javax.sql.DataSource;
 
 
 @Getter
@@ -52,5 +57,20 @@ public class RdsDatabaseInfo {
         this.defaultDb = defaultDb;
 
         this.utime = System.currentTimeMillis();
+    }
+
+    /**
+     * 以当前数据库信息创建一个DataSource对象，如果创建失败返回null
+     * @return DataSource对象
+     */
+    @SneakyThrows
+    public DataSource createDataSource() {
+        MysqlDataSource mysqlDataSource = new MysqlDataSource();
+        mysqlDataSource.setUrl(String.format("jdbc:mysql://%s/%s", host, defaultDb));
+        mysqlDataSource.setPort(port);
+        mysqlDataSource.setUser(userName);
+        mysqlDataSource.setPassword(password);
+        mysqlDataSource.setAllowMultiQueries(true);
+        return mysqlDataSource;
     }
 }
