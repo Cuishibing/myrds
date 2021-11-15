@@ -2,10 +2,13 @@
   <div>
     <iframe
       id="editor_frame"
-      src="/editor/editor.html"
+      src="/components/editor/editor.html"
       style="width: 100%; height: 500px"
     />
-    <button @click="runSql">运行</button>
+    <h4>
+      <button @click="runSql">运行</button>
+      <button>复制</button>
+    </h4>
     <m-dynamictable :tableData="sqlRunResult" />
   </div>
 </template>
@@ -18,7 +21,7 @@ import { mvueloader } from "/js/mvueloader.mjs";
 export default {
   props: ["dbId"],
   components: {
-    "m-dynamictable": mvueloader("/dynamictable/dynamictable.vue"),
+    "m-dynamictable": mvueloader("/components/dynamictable/dynamictable.vue"),
   },
   data() {
     return {

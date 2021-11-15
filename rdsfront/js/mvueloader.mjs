@@ -1,4 +1,6 @@
-import { loadModule } from '/js/vue3-sfc-loader.esm.mjs'
+// import { loadModule } from '/js/vue3-sfc-loader.esm.mjs'
+
+const { loadModule } = window['vue3-sfc-loader'];
 
 const options = {
     moduleCache: { vue: Vue },

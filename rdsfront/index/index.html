@@ -9,6 +9,7 @@
     <title>MyRds</title>
 
     <script src="https://unpkg.com/vue@3.2.20"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
 </head>
 
 <body>
@@ -28,8 +29,8 @@
         import { mvueloader } from "/js/mvueloader.mjs"
         const app = {
             components: {
-                "m-header": mvueloader("/header/header.vue"),
-                "m-dblist": mvueloader("/dblist/dblist.vue")
+                "m-header": mvueloader("/components/header/header.vue"),
+                "m-dblist": mvueloader("/components/dblist/dblist.vue")
             }
         }
         Vue.createApp(app).mount("#app")

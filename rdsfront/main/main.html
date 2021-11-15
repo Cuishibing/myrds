@@ -8,6 +8,7 @@
     <title>Document</title>
 
     <script src="https://unpkg.com/vue@3.2.20"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
 </head>
 
 <body>
@@ -20,13 +21,13 @@
         <div style="display: flex; justify-content: center;">
             <m-tablelist style="width: 20%;"></m-tablelist>
             <div style="width: 60%;">
-                <div
-                    style="display: block;margin-block-start: 1.33em;margin-block-end: 1.33em;margin-inline-start: 0px;margin-inline-end: 0px;">
-                    <button style="line-height: 20px;" id="sql" v-bind:style="selfActive('sql')"
-                        @click="tabClick('sql')">SQL</button>&nbsp;
-                    <button style="line-height: 20px;" id="tableInfo" v-bind:style="selfActive('tableInfo')"
+                <h4>
+                    <button id="sql" v-bind:style="selfActive('sql')" @click="tabClick('sql')">SQL</button>
+                    <button id="tableInfo" v-bind:style="selfActive('tableInfo')"
                         @click="tabClick('tableInfo')">表信息</button>
-                </div>
+
+                    <button>新建表</button>
+                </h4>
                 <m-sql :style="{visibility:activeTab == 'sql' ? 'visible' : 'hidden'}" :db-id="dbId"></m-sql>
             </div>
         </div>
@@ -37,9 +38,9 @@
         import { mvueloader } from "/js/mvueloader.mjs"
         const app = {
             components: {
-                "m-header": mvueloader("/header/header.vue"),
-                "m-tablelist": mvueloader("/tablelist/tablelist.vue"),
-                "m-sql": mvueloader("/sql/sql.vue")
+                "m-header": mvueloader("/components/header/header.vue"),
+                "m-tablelist": mvueloader("/components/tablelist/tablelist.vue"),
+                "m-sql": mvueloader("/components/sql/sql.vue")
             },
             data() {
                 return {
@@ -85,5 +86,12 @@
 
     </script>
 </body>
+<style>
+    button {
+        line-height: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+</style>
 
 </html>

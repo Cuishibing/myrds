@@ -1,7 +1,9 @@
 <template>
   <div>
     <h4>TABLE列表</h4>
-    <label>搜索：</label><input  type="text" />
+    <div>
+      <label>搜索：</label><input  type="text" />
+    </div>
     <div
       v-for="t in tables"
       :key="t"

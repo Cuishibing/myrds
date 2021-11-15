@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <table>
+  <div style="overflow-x:auto; overflow-y:auto; max-height:800px">
+    <table style="width:100%"> 
       <tr>
         <th v-for="column in columnNames" :key="column">{{ column }}</th>
       </tr>
@@ -23,10 +23,6 @@ export default {
   },
 
   methods: {},
-
-  mounted() {
-    console.info(this.tableData);
-  },
 
   watch: {
     tableData: function (n, o) {
@@ -56,5 +52,9 @@ table tr td {
 table {
   text-align: left;
   border-collapse: collapse;
+}
+
+th {
+  background-color: antiquewhite;
 }
 </style>
