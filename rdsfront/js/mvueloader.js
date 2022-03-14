@@ -1,4 +1,4 @@
-// import { loadModule } from '/js/vue3-sfc-loader.esm.mjs'
+// import { loadModule } from '/js/vue3-sfc-loader.esm.js'
 
 const { loadModule } = window['vue3-sfc-loader'];
 
@@ -8,7 +8,33 @@ const options = {
         const res = await fetch(url)
         if (!res.ok)
             throw Object.assign(new Error(res.statusText + ' ' + url), { res })
-        
+
+        if (/.*?\.html$/.test(url)) {
+            return {
+                type: ".vue",
+                getContentData: (asBinary) => {
+                    if (asBinary) {
+                        return res.arrayBuffer()
+                    } else {
+                        return res.text()
+                    }
+                }
+            }
+        }
+
+        if (/.*?\.js$/.test(url)) {
+            return {
+                type: ".mjs",
+                getContentData: (asBinary) => {
+                    if (asBinary) {
+                        return res.arrayBuffer()
+                    } else {
+                        return res.text()
+                    }
+                }
+            }
+        }
+
         return {
             getContentData: (asBinary) => {
                 if (asBinary) {

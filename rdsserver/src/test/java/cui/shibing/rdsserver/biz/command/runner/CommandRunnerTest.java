@@ -1,7 +1,7 @@
 package cui.shibing.rdsserver.biz.command.runner;
 
 import cui.shibing.rdsserver.App;
-import cui.shibing.rdsserver.biz.command.runner.parser.ResultParserFactory;
+import cui.shibing.rdsserver.biz.command.runner.result.parser.ResultParserFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

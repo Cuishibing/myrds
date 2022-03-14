@@ -1,4 +1,4 @@
-import { req } from '/js/req.mjs'
+import { req } from '/js/req.js'
 const host = 'http://localhost:8080'
 
 const getAllDatabaseInfo = async () => {

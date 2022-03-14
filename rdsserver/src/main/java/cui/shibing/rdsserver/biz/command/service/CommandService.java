@@ -4,7 +4,7 @@ import cui.shibing.rdsserver.biz.command.dto.SqlExecuteParam;
 import cui.shibing.rdsserver.biz.command.runner.Command;
 import cui.shibing.rdsserver.biz.command.runner.CommandRunner;
 import cui.shibing.rdsserver.biz.command.runner.Result;
-import cui.shibing.rdsserver.biz.command.runner.parser.ResultParserFactory;
+import cui.shibing.rdsserver.biz.command.runner.result.parser.ResultParserFactory;
 import cui.shibing.rdsserver.biz.dabatase.domain.RdsDatabaseInfo;
 import cui.shibing.rdsserver.biz.dabatase.domain.factory.RdsDatabaseInfoFactory;
 import cui.shibing.rdsserver.biz.dabatase.repository.RdsDatabaseInfoRepository;

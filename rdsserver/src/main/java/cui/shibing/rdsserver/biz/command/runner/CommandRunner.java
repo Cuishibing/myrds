@@ -1,6 +1,6 @@
 package cui.shibing.rdsserver.biz.command.runner;
 
-import cui.shibing.rdsserver.biz.command.runner.parser.ResultParserFactory;
+import cui.shibing.rdsserver.biz.command.runner.result.parser.ResultParserFactory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +19,10 @@ public class CommandRunner {
     private DataSource dataSource;
 
     private ResultParserFactory parserFactory;
+
+    public Result run(String sql) throws SQLException {
+        return null;
+    }
 
     public Result run(Command command) throws SQLException {
         try(Connection connection = dataSource.getConnection();

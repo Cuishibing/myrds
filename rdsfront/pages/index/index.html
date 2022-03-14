@@ -26,11 +26,11 @@
 
 
     <script type="module">
-        import { mvueloader } from "/js/mvueloader.mjs"
+        import { mvueloader } from "/js/mvueloader.js"
         const app = {
             components: {
-                "m-header": mvueloader("/components/header/header.vue"),
-                "m-dblist": mvueloader("/components/dblist/dblist.vue")
+                "m-header": mvueloader("/components/header/header.html"),
+                "m-dblist": mvueloader("/components/dblist/dblist.html")
             }
         }
         Vue.createApp(app).mount("#app")

@@ -15,13 +15,13 @@
 
 
 <script>
-import { executeSql } from "/js/api.mjs";
-import { mvueloader } from "/js/mvueloader.mjs";
+import { executeSql } from "/js/api.js";
+import { mvueloader } from "/js/mvueloader.js";
 
 export default {
   props: ["dbId"],
   components: {
-    "m-dynamictable": mvueloader("/components/dynamictable/dynamictable.vue"),
+    "m-dynamictable": mvueloader("/components/dynamictable/dynamictable.html"),
   },
   data() {
     return {

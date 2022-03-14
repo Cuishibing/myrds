@@ -1,4 +1,4 @@
-package cui.shibing.rdsserver.biz.command.runner.parser;
+package cui.shibing.rdsserver.biz.command.runner.result.parser;
 
 import cui.shibing.rdsserver.biz.command.runner.CommandType;
 import cui.shibing.rdsserver.biz.command.runner.Result;
