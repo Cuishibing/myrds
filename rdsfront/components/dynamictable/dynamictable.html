@@ -1,6 +1,6 @@
 <template>
   <div style="overflow-x:auto; overflow-y:auto; max-height:800px">
-    <table style="width:100%"> 
+    <table style="width:100%">
       <tr>
         <th v-for="column in columnNames" :key="column">{{ column }}</th>
       </tr>
@@ -8,53 +8,65 @@
         <td v-for="d in row" :key="d">{{ d }}</td>
       </tr>
     </table>
+    <h5 v-if="functionShow">
+      <button>复制</button>
+      <button>导出</button>
+    </h5>
   </div>
 </template>
 
 <script>
-export default {
-  props: ["tableData"],
+  export default {
+    props: ["tableData"],
 
-  data() {
-    return {
-      columnNames: [],
-      rows: [],
-    };
-  },
-
-  methods: {},
-
-  watch: {
-    tableData: function (n, o) {
-      if (n.code != 200) {
-        return;
-      }
-      let data = n.data;
-      this.columnNames = data.columnNames;
-      this.rows = data.rows;
+    data() {
+      return {
+        columnNames: [],
+        rows: [],
+        functionShow: false
+      };
     },
-  },
-};
+
+    methods: {},
+
+    watch: {
+      tableData: function (n, o) {
+        this.functionShow = true
+        if (n.code != 200) {
+          this.columnNames = ["Message"]
+          this.rows = [[n.data]]
+
+          return;
+        }
+        let data = n.data;
+        this.columnNames = data.columnNames;
+        this.rows = data.rows;
+      },
+    },
+  };
 </script>
 
- <style scoped>
-table td,
-th {
-  min-width: 50px;
-}
+<style scoped>
+  table td,
+  th {
+    min-width: 50px;
+  }
 
-table,
-table tr th,
-table tr td {
-  border: 1px solid black;
-  padding: 5px;
-}
-table {
-  text-align: left;
-  border-collapse: collapse;
-}
+  table,
+  table tr th,
+  table tr td {
+    border: 1px solid black;
+    padding: 5px;
+    font-family: monospace;
+    font-weight: bold;
+  }
 
-th {
-  background-color: antiquewhite;
-}
+  table {
+    text-align: left;
+    border-collapse: collapse;
+  }
+
+  th {
+    background-color: antiquewhite;
+  }
 </style>

@@ -30,7 +30,7 @@
                 </h4>
                 <m-sql :style="{display:activeTab == 'sql' ? '' : 'none'}" :db-id="dbId"></m-sql>
 
-                <m-tableinfo :style="{display:activeTab == 'tableinfo' ? '' : 'none'}" ></m-tableinfo>
+                <m-tableinfo :style="{display:activeTab == 'tableinfo' ? '' : 'none'}" :db-id="dbId"></m-tableinfo>
             </div>
         </div>
     </div>
@@ -38,6 +38,7 @@
 
     <script type="module">
         import { mvueloader } from "/js/mvueloader.js"
+        import { notify } from "/js/eventbus.js"
         const app = {
             components: {
                 "m-header": mvueloader("/components/header/header.html"),
@@ -54,6 +55,7 @@
             methods: {
                 tabClick(id) {
                     this.activeTab = id
+                    notify("mainTab", id)
                 },
                 selfActive(id) {
                     if (id == this.activeTab) {
@@ -83,8 +85,8 @@
                 this.init()
             }
         }
-        Vue.createApp(app).mount("#app")
-
+        let v = Vue.createApp(app)
+        v.mount("#app")
     </script>
 </body>
 <style>

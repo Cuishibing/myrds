@@ -1,21 +1,58 @@
 <template>
-<div>
     <div>
-        <h4>{{tableName}}</h4>
         <div>
-            {{createTableSql}}
+            <h4>{{tableName}}</h4>
+            <m-dynamictable :tableData="createTableSql" />
         </div>
     </div>
-</div>
 </template>
 
 <script>
+    import { mvueloader } from "/js/mvueloader.js";
+    import { executeSql } from "/js/api.js";
+    import { getUrlKey } from "/js/util.js"
+    import { register } from "/js/eventbus.js"
+
     export default {
-        data(){
+        props: ["dbId"],
+        components: {
+            "m-dynamictable": mvueloader("/components/dynamictable/dynamictable.html"),
+        },
+        data() {
             return {
-                tableName:"t_rds_database_info",
-                createTableSql:"create t_rds_database_info (\nasdfasfsad\nasdfasdfsafs\nasfsadfasdf)"
+                tableName: "",
+                createTableSql: undefined,
+                selfSelected: false
             }
+        },
+        methods: {
+            descTable(t) {
+                if (t === null || t === undefined) {
+                    return
+                }
+                this.tableName = t;
+                executeSql({
+                    databaseInfoId: this.dbId,
+                    sql: "SHOW FULL  COLUMNS FROM " + t,
+                }).then((data) => {
+                    console.info(data);
+                    this.createTableSql = data;
+                });
+            }
+        },
+        mounted() {
+            register("notifyDbListSelected", data => {
+                if (this.selfSelected) {
+                    this.descTable(data)
+                }
+            }),
+            register("mainTab", data=>{
+                if (data == "tableinfo") {
+                    this.selfSelected = true
+                } else {
+                    this.selfSelected = false
+                }
+            })
         }
     }
 </script>
