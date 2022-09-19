@@ -20,9 +20,6 @@ public class CommandRunner {
 
     private ResultParserFactory parserFactory;
 
-    public Result run(String sql) throws SQLException {
-        return null;
-    }
 
     public Result run(Command command) throws SQLException {
         try(Connection connection = dataSource.getConnection();

@@ -6,14 +6,14 @@ import cui.shibing.rdsserver.biz.command.runner.Result;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ResultSetResultParser implements ResultParser {
     @Override
-    public CommandType supportCommandType() {
-        return CommandType.QUERY;
+    public Set<CommandType> supportCommandType() {
+        Set<CommandType> supportType = new HashSet<>();
+        supportType.add(CommandType.QUERY);
+        return supportType;
     }
 
     @Override

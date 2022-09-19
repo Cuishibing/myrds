@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 public class QueryDslLoggingSqlListener extends SQLBaseListener {
 
     @Override
-    public void rendered(SQLListenerContext context) {
+    public void end(SQLListenerContext context) {
         SQLBindings sqlBindings = context.getSQLBindings();
         log.info(sqlBindings.getSQL() + sqlBindings.getNullFriendlyBindings());
     }

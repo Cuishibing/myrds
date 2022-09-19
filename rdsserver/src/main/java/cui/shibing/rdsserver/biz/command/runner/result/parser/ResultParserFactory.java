@@ -5,6 +5,7 @@ import cui.shibing.rdsserver.biz.command.runner.CommandType;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class ResultParserFactory {
 
     private ResultParserFactory(){}
@@ -15,11 +16,14 @@ public class ResultParserFactory {
 
     static {
         instance.register(new ResultSetResultParser());
+        instance.register(new UpdateResultParser());
     }
 
 
     public void register(ResultParser parser) {
-        parserRegistry.put(parser.supportCommandType(), parser);
+        for (CommandType commandType : parser.supportCommandType()) {
+            parserRegistry.put(commandType, parser);
+        }
     }
 
     public ResultParser create(CommandType type) {

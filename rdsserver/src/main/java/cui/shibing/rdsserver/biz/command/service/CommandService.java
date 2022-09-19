@@ -2,6 +2,7 @@ package cui.shibing.rdsserver.biz.command.service;
 
 import cui.shibing.rdsserver.biz.command.dto.SqlExecuteParam;
 import cui.shibing.rdsserver.biz.command.runner.Command;
+import cui.shibing.rdsserver.biz.command.runner.sql.parser.CommandParser;
 import cui.shibing.rdsserver.biz.command.runner.CommandRunner;
 import cui.shibing.rdsserver.biz.command.runner.Result;
 import cui.shibing.rdsserver.biz.command.runner.result.parser.ResultParserFactory;
@@ -24,6 +25,9 @@ public class CommandService {
     @Autowired
     private RdsDatabaseInfoRepository databaseInfoRepository;
 
+    @Autowired
+    private CommandParser commandParser;
+
     public Result execute(SqlExecuteParam param) throws SQLException {
         if (param.getDatabaseInfoId() == null) {
             throw new BizException("400", "数据id为null");
@@ -36,7 +40,9 @@ public class CommandService {
 
         DataSource dataSource = database.createDataSource();
         CommandRunner commandRunner = CommandRunner.builder().dataSource(dataSource).parserFactory(ResultParserFactory.instance).build();
-        return commandRunner.run(Command.query(param.getSql()));
+
+        Command command = commandParser.parse(param.getSql());
+        return commandRunner.run(command);
     }
 
 }
