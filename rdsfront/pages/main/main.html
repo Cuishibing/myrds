@@ -22,9 +22,8 @@
             <m-tablelist style="width: 20%;"></m-tablelist>
             <div style="width: 60%;">
                 <h4>
-                    <button id="sql" v-bind:style="selfActive('sql')" @click="tabClick('sql')">SQL</button>
-                    <button id="tableInfo" v-bind:style="selfActive('tableinfo')"
-                        @click="tabClick('tableinfo')">表信息</button>
+                    <button id="sql" :style="selfActive('sql')" @click="tabClick('sql')">SQL</button>
+                    <button id="tableInfo" :style="selfActive('tableinfo')" @click="tabClick('tableinfo')">表信息</button>
 
                     <button>新建表</button>
                 </h4>
@@ -39,6 +38,7 @@
     <script type="module">
         import { mvueloader } from "/js/mvueloader.js"
         import { notify } from "/js/eventbus.js"
+        import { getUrlKey } from "/js/util.js"
         const app = {
             components: {
                 "m-header": mvueloader("/components/header/header.html"),
@@ -64,21 +64,13 @@
                         }
                     }
                 },
-                getUrlKey: function (name) {
-                    return (
-                        decodeURIComponent(
-                            (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
-                                location.href
-                            ) || [, ""])[1].replace(/\+/g, "%20")
-                        ) || null
-                    );
-                },
+                
                 loadTitle() {
-                    document.title = this.getUrlKey("dbName");
+                    document.title = getUrlKey("dbName");
                 },
                 init() {
                     this.loadTitle()
-                    this.dbId = Number(this.getUrlKey("dbId"))
+                    this.dbId = Number(getUrlKey("dbId"))
                 },
             },
             mounted() {

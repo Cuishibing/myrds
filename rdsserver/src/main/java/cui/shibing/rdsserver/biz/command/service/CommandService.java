@@ -42,7 +42,9 @@ public class CommandService {
         CommandRunner commandRunner = CommandRunner.builder().dataSource(dataSource).parserFactory(ResultParserFactory.instance).build();
 
         Command command = commandParser.parse(param.getSql());
-        return commandRunner.run(command);
+        Result result = commandRunner.run(command);
+        result.excludeFields(param.getExcludeFields());
+        return result;
     }
 
 }
